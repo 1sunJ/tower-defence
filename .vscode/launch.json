@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Game",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "game.main",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Editor",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "editor.main",
+      "cwd": "${workspaceFolder}",
+      "args": ["maps/test.json"]
+    }
+  ]
+}
