@@ -8,6 +8,7 @@ WIDTH, HEIGHT = 600, 400
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) # gamemap select screen
+map_surface = None
 
 basic_font = pygame.font.SysFont(None, 32)
 
@@ -19,6 +20,7 @@ gamemap_names = gamemap_loader.get_gamemap_names()
 
 # playing
 name, start_gold, lives, tiles = None, None, None, None
+header_rect, map_rect, panel_rect = None, None, None
 
 while True :
 
@@ -39,8 +41,16 @@ while True :
                     state = PLAYING
                     name = gamemap_names[selected_index]
                     name, start_gold, lives, tiles = gamemap_loader.load_gamemap(name)
-                    screen = pygame.display.set_mode((len(tiles[0]) * CELL_SIZE, len(tiles) * CELL_SIZE))
-                    
+
+                    map_w = len(tiles[0]) * CELL_SIZE
+                    map_h = len(tiles) * CELL_SIZE
+                    screen = pygame.display.set_mode((map_w, HEADER_HEIGHT + map_h + PANEL_HEIGHT))
+
+                    header_rect = pygame.Rect(0, 0, map_w, HEADER_HEIGHT)
+                    map_rect    = pygame.Rect(0, header_rect.bottom, map_w, map_h)
+                    panel_rect  = pygame.Rect(0, map_rect.bottom, map_w, PANEL_HEIGHT)
+                    map_surface = screen.subsurface(map_rect)
+                
             # playing event
             elif state == PLAYING :
                 pass
@@ -64,18 +74,26 @@ while True :
 
     # playing screen
     if state == PLAYING :
+        # header
+        pygame.draw.rect(screen, GRAY, header_rect)
+
+        # map
+        pygame.draw.rect(screen, BLACK, map_rect)
         n, m = len(tiles), len(tiles[0])
         for i in range(n) :
             for j in range(m) :
                 rect = pygame.Rect(j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE)
                 if tiles[i][j] == 'S' :
-                    pygame.draw.rect(screen, BLUE, rect)
+                    pygame.draw.rect(map_surface, BLUE, rect)
                 elif tiles[i][j] == 'G' :
-                    pygame.draw.rect(screen, RED, rect)
+                    pygame.draw.rect(map_surface, RED, rect)
                 elif tiles[i][j] == '#' :
-                    pygame.draw.rect(screen, YELLOW, rect)
+                    pygame.draw.rect(map_surface, YELLOW, rect)
                 else : # '.'
-                    pygame.draw.rect(screen, WHITE, rect)
+                    pygame.draw.rect(map_surface, WHITE, rect)
+
+        # panel
+        pygame.draw.rect(screen, GRAY, panel_rect)
 
     pygame.display.flip()
 

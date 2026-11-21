@@ -2,9 +2,9 @@
 FPS = 30
 
 # screen
-CELL_SIZE = 64
+CELL_SIZE = 96
 HEADER_HEIGHT = 40
-BOTTOM_PANNEL_HEIGHT = 128
+PANEL_HEIGHT = 128
 
 # color
 BLACK = (0, 0, 0)
@@ -12,6 +12,7 @@ WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
+GRAY = (40, 40, 40)
 
 # state
 SELECTION = 'SELECTION'
