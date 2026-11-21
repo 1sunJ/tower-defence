@@ -22,8 +22,9 @@ path = sys.argv[1]
 # load map, or make a new one if the file doesn't exist
 # other keys in the json (besides "tiles") are kept as they are
 try :
-    with open(path) as f :
-        map_data = json.load(f)
+    f = open(path)
+    map_data = json.load(f)
+    f.close()
 except FileNotFoundError :
     map_data = {'tiles' : ['.' * NEW_MAP_COLS] * NEW_MAP_ROWS}
 
@@ -53,8 +54,9 @@ while True :
 
             elif event.key == pygame.K_s and event.mod & pygame.KMOD_CTRL :
                 map_data['tiles'] = [''.join(row) for row in grid]
-                with open(path, 'w') as f :
-                    json.dump(map_data, f, indent=2)
+                f = open(path, 'w')
+                json.dump(map_data, f, indent=2)
+                f.close()
                 print('saved :', path)
 
     # paint the tile under the mouse
