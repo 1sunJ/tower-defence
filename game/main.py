@@ -21,6 +21,7 @@ gamemap_names = gamemap_loader.get_gamemap_names()
 # playing
 name, start_gold, lives, tiles = None, None, None, None
 header_rect, map_rect, panel_rect = None, None, None
+towers = {}
 
 while True :
 

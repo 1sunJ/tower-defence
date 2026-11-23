@@ -1,19 +1,32 @@
-
+import pygame
+from common.constants import *
 
 class Map :
-    pass
+    def __init__(self, name, start_gold, lives, tiles) :
+        self.name = name
+        self.start_gold = start_gold
+        self.lives = lives
+        self.tiles = tiles
 
 class Tile :
-    pass
+    color = GRAY
+
+    def __init__(self, row, col) :
+        self.row = row
+        self.col = col
+
+    def draw(self, surface) :
+        rect = pygame.Rect(self.col * CELL_SIZE, self.row * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+        pygame.draw.rect(surface, self.color, rect)
 
 class RoadTile(Tile) :
-    pass
+    color = YELLOW
 
 class BuildableTile(Tile) :
-    pass
+    color = GREEN
 
 class SpawnTile(RoadTile) :
-    pass
+    color = BLUE
 
 class GoalTile(RoadTile) :
-    pass
+    color = RED
